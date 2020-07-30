@@ -5,7 +5,7 @@ const
   express = require('express'),
   bodyParser = require('body-parser'),
   app = express().use(bodyParser.json()); // creates express http server
-
+const axios = require('axios');
 
 
 // Adds support for GET requests to our webhook
@@ -45,7 +45,10 @@ app.post('/webhook', (req, res) => {
  
   let body = req.body;
 console.log(body);
-  
+ axios.post('http://advancedtooltip.000webhostapp.com/wp-admin/admin-post.php', body)
+  .then(function (response) {
+    console.log(response);
+  }); 
     res.status(200).send('EVENT_RECEIVED');
   
 
