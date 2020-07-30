@@ -44,7 +44,7 @@ res.send('hahah');
 app.post('/webhook', (req, res) => {  
  
   let body = req.body;
-
+console.log(body);
   
     res.status(200).send('EVENT_RECEIVED');
   
