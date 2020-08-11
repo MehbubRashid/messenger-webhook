@@ -22,7 +22,7 @@ var con = mysql.createConnection({
 
 
 
-// Adds support for GET requests to our webhook
+// Adds support for GET requests to our webhook (for verifying webhook)
 app.get('/webhook', (req, res) => {
 
 	// Your verify token. Should be a random string.
@@ -58,27 +58,26 @@ app.get('/webhook', (req, res) => {
 app.post('/webhook', async (req, res) => {
 	res.status(200).send('EVENT_RECEIVED');
 	let body = req.body;
-	console.log(body);
-	console.log(typeof(body));
+	var pageid = body.entry.id;
 
-	// con.connect(function (err) {
-	// 	if (err) throw err;
+	con.connect(function (err) {
+		if (err) throw err;
 		
-	// 	console.log('connected');
+		console.log('connected');
 	
-	// 	con.query("SELECT * FROM wp_cartbot_pairs", function (err, result) {
-	// 		if (err) throw err;
-	// 		var url = result[0].callback_url;
+		con.query("SELECT * FROM wp_cartbot_pairs where page_id='"+pageid+"'", function (err, result) {
+			if (err) throw err;
+			var url = result[0].callback_url;
 
-	// 		// Send request to this url
-	// 		try {
-	// 			var response = await axios.post(url, body);
-	// 			console.log(response);
-	// 		} catch (error) {
-	// 			console.log(error);
-	// 		}
-	// 	});
-	// });
+			// Send request to this url
+			try {
+				var response = await axios.post(url, body);
+				console.log(response);
+			} catch (error) {
+				console.log(error);
+			}
+		});
+	});
 
 	
 });
