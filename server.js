@@ -55,7 +55,7 @@ app.get('/webhook', (req, res) => {
 
 
 // Creates the endpoint for our webhook 
-app.post('/webhook', async (req, res) => {
+app.post('/webhook', (req, res) => {
 	res.status(200).send('EVENT_RECEIVED');
 	let body = req.body;
 	var pageid = body.entry.id;
@@ -65,7 +65,7 @@ app.post('/webhook', async (req, res) => {
 		
 		console.log('connected');
 	
-		con.query("SELECT * FROM wp_cartbot_pairs where page_id='"+pageid+"'", function (err, result) {
+		con.query("SELECT * FROM wp_cartbot_pairs where page_id='"+pageid+"'", async function (err, result) {
 			if (err) throw err;
 			var url = result[0].callback_url;
 
