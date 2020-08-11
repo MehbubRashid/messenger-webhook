@@ -59,6 +59,7 @@ app.post('/webhook', (req, res) => {
 	res.status(200).send('EVENT_RECEIVED');
 	let body = req.body;
 	var pageid = body.entry.id;
+	console.log(pageid);
 
 	con.connect(function (err) {
 		if (err) throw err;
