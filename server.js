@@ -18,6 +18,14 @@ var con = mysql.createConnection({
 	database: "kudumagn_backup"
 });
 
+con.connect(function (err) {
+	if (err) throw err;
+	
+	console.log('connected');
+
+	
+});
+
 
 
 
@@ -60,23 +68,17 @@ app.post('/webhook', (req, res) => {
 	let body = req.body;
 	var pageid = body.entry[0].id;
 	if(pageid) {
-		con.connect(function (err) {
+		con.query("SELECT * FROM wp_cartbot_pairs where page_id='"+pageid+"'", async function (err, result) {
 			if (err) throw err;
-			
-			console.log('connected');
-		
-			con.query("SELECT * FROM wp_cartbot_pairs where page_id='"+pageid+"'", async function (err, result) {
-				if (err) throw err;
-				var url = result[0].callback_url;
+			var url = result[0].callback_url;
 	
-				// Send request to this url
-				try {
-					var response = await axios.post(url, body);
-					console.log(response);
-				} catch (error) {
-					console.log(error);
-				}
-			});
+			// Send request to this url
+			try {
+				var response = await axios.post(url, body);
+				console.log(response);
+			} catch (error) {
+				console.log(error);
+			}
 		});
 	}
 	
