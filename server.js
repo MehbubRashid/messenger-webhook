@@ -58,30 +58,27 @@ app.get('/webhook', (req, res) => {
 app.post('/webhook', (req, res) => {
 	res.status(200).send('EVENT_RECEIVED');
 	let body = req.body;
-	var pageid = body.entry.id;
-	console.log(body);
-	console.log(body.entry);
-	console.log(pageid);
-
-	con.connect(function (err) {
-		if (err) throw err;
-		
-		console.log('connected');
-	
-		con.query("SELECT * FROM wp_cartbot_pairs where page_id='"+pageid+"'", async function (err, result) {
+	var pageid = body.entry[0].id;
+	if(pageid) {
+		con.connect(function (err) {
 			if (err) throw err;
-			var url = result[0].callback_url;
-
-			// Send request to this url
-			try {
-				var response = await axios.post(url, body);
-				console.log(response);
-			} catch (error) {
-				console.log(error);
-			}
+			
+			console.log('connected');
+		
+			con.query("SELECT * FROM wp_cartbot_pairs where page_id='"+pageid+"'", async function (err, result) {
+				if (err) throw err;
+				var url = result[0].callback_url;
+	
+				// Send request to this url
+				try {
+					var response = await axios.post(url, body);
+					console.log(response);
+				} catch (error) {
+					console.log(error);
+				}
+			});
 		});
-	});
-
+	}
 	
 });
 
