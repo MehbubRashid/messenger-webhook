@@ -47,7 +47,7 @@ app.post('/webhook', async (req, res) => {
 	try {
 		// var response = await axios.post('http://advancedtooltip.000webhostapp.com/wp-admin/admin-post.php', body);
 		
-		var response = await axios.post('https://f72ec9758fbd.ngrok.io/woo/wp-admin/admin-post.php', body);
+		var response = await axios.post('https://alnahian.xyz/wp-admin/admin-post.php', body);
 		console.log(response);
 	} catch (error) {
 		console.log(error);
