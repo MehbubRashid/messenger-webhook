@@ -11,21 +11,14 @@ var mysql = require('mysql');
 
 
 var con = mysql.createConnection({
-	host: "https://www.kudumagnets.com/",
+	host: "5.255.68.228",
 	port: "3306",
 	user: "kudumagn_backup",
 	password: "kudumagn_backup",
 	database: "kudumagn_backup"
 });
 
-con.connect(function (err) {
-	if (err) throw err;
-	// con.query("SELECT * FROM customers", function (err, result, fields) {
-	// 	if (err) throw err;
-	// 	console.log(result);
-	// });
-	console.log('connected');
-});
+
 
 
 
@@ -65,14 +58,29 @@ app.get('/webhook', (req, res) => {
 app.post('/webhook', async (req, res) => {
 	res.status(200).send('EVENT_RECEIVED');
 	let body = req.body;
-	try {
-		// var response = await axios.post('http://advancedtooltip.000webhostapp.com/wp-admin/admin-post.php', body);
+	console.log(body);
+	console.log(typeof(body));
 
-		var response = await axios.post('https://alnahian.xyz/wp-admin/admin-post.php', body);
-		console.log(response);
-	} catch (error) {
-		console.log(error);
-	}
+	// con.connect(function (err) {
+	// 	if (err) throw err;
+		
+	// 	console.log('connected');
+	
+	// 	con.query("SELECT * FROM wp_cartbot_pairs", function (err, result) {
+	// 		if (err) throw err;
+	// 		var url = result[0].callback_url;
+
+	// 		// Send request to this url
+	// 		try {
+	// 			var response = await axios.post(url, body);
+	// 			console.log(response);
+	// 		} catch (error) {
+	// 			console.log(error);
+	// 		}
+	// 	});
+	// });
+
+	
 });
 
 
