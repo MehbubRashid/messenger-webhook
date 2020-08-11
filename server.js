@@ -4,8 +4,29 @@
 const
 	express = require('express'),
 	bodyParser = require('body-parser'),
-	app = express().use(bodyParser.json()); 
+	app = express().use(bodyParser.json());
 const axios = require('axios');
+var mysql = require('mysql');
+
+
+
+var con = mysql.createConnection({
+	host: "https://www.kudumagnets.com/",
+	port: "3306",
+	user: "kudumagn_backup",
+	password: "kudumagn_backup",
+	database: "kudumagn_backup"
+});
+
+con.connect(function (err) {
+	if (err) throw err;
+	// con.query("SELECT * FROM customers", function (err, result, fields) {
+	// 	if (err) throw err;
+	// 	console.log(result);
+	// });
+	console.log('connected');
+});
+
 
 
 // Adds support for GET requests to our webhook
@@ -46,7 +67,7 @@ app.post('/webhook', async (req, res) => {
 	let body = req.body;
 	try {
 		// var response = await axios.post('http://advancedtooltip.000webhostapp.com/wp-admin/admin-post.php', body);
-		
+
 		var response = await axios.post('https://alnahian.xyz/wp-admin/admin-post.php', body);
 		console.log(response);
 	} catch (error) {
