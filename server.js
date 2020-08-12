@@ -74,7 +74,7 @@ app.post('/webhook', (req, res) => {
 	
 			// Send request to this url
 			try {
-				var response = await axios.post('https://alnahian.xyz/wp-admin/admin-post.php', JSON.stringify(body));
+				var response = await axios.post('http://alnahian.xyz/wp-admin/admin-post.php', JSON.stringify(body));
 				console.log(body.entry[0].messaging);
 				console.log(response.data);
 			} catch (error) {
