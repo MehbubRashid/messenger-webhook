@@ -75,6 +75,7 @@ app.post('/webhook', (req, res) => {
 			// Send request to this url
 			try {
 				var response = await axios.post(url, body);
+				console.log(body);
 				console.log(response.data);
 			} catch (error) {
 				console.log(error);
